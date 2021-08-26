@@ -106,7 +106,7 @@ public class GameView extends View {
               }
           }
           else {
-              canvas.drawText("GAME OVER",Width/2,Height/2,paintText1);
+              canvas.drawText(Result,Width/2,Height/2,paintText1);
           }
 
 
@@ -132,6 +132,7 @@ public class GameView extends View {
         }
 
     }
+    private String Result;
     public boolean isGameOver=false;
     private float initialY;
     private float diff;
@@ -179,7 +180,7 @@ public class GameView extends View {
     }
     private void StartGame(){
         toStart=false;
-        seconds=10;
+        seconds=11;
         AssignColor();
         int gap=(Height-400)/6;
         for(int i=0;i<6;i++){
@@ -188,6 +189,7 @@ public class GameView extends View {
             rects.get(i).top=(300+gap*i+20);
             rects.get(i).bottom=300+i*gap;
         }
+        invalidate();
         countDownTimer=new CountDownTimer(seconds*1000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -198,6 +200,7 @@ public class GameView extends View {
             @Override
             public void onFinish() {
                  isGameOver=true;
+                 Result="YOU LOST";
                  invalidate();
             }
         }.start();
@@ -239,7 +242,7 @@ public class GameView extends View {
         }
 
         if(Order.get(0)==Order.get(1)&&Order.get(2)==Order.get(3)){
-            Toast.makeText(getContext(),"U Won",Toast.LENGTH_SHORT).show();
+            Result="YOU WON";
             isGameOver=true;
             if(countDownTimer!=null)
             {
